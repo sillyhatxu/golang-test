@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  docker-replicas:
+    image: xushikuan/docker-replicas:latest
+    ports:
+      - 8080:8080
+    deploy:
+      replicas: 2
+      restart_policy:
+        max_attempts: 2
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
+      start_period: 10s
+      timeout: 10s
+      retries: 3
+      interval: 5s
+
